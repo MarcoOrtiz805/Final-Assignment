@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isWalking)
         {
+            Sprint();
             if (!m_AudioSource.isPlaying)
             {
                 m_AudioSource.Play();
@@ -53,5 +54,19 @@ public class PlayerMovement : MonoBehaviour
     {
         m_Rigidbody.MovePosition(m_Rigidbody.position + m_Movement * m_Animator.deltaPosition.magnitude);
         m_Rigidbody.MoveRotation(m_Rotation);
+    }
+
+    //function to sprint if the player is holding shift
+    void Sprint()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            m_Animator.SetBool("IsSprinting", true);
+            m_Movement *= 2f; // Double the movement speed
+        }
+        else
+        {
+            m_Animator.SetBool("IsSprinting", false);
+        }
     }
 }
